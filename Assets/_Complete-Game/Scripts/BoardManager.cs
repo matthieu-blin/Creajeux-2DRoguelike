@@ -126,11 +126,15 @@ namespace Completed
 				Instantiate(tileChoice, randomPosition, Quaternion.identity);
 			}
 		}
-		
+
+        public int Seed = 42;
 		
 		//SetupScene initializes our level and calls the previous functions to lay out the game board
 		public void SetupScene (int level)
 		{
+            //use determinist seed
+            Random.InitState(Seed++);
+
 			//Creates the outer walls and floor.
 			BoardSetup ();
 			
@@ -145,9 +149,14 @@ namespace Completed
 			
 			//Determine number of enemies based on current level number, based on a logarithmic progression
 			int enemyCount = (int)Mathf.Log(level, 2f);
-			
+
+            int id = 3;
 			//Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
 			LayoutObjectAtRandom (enemyTiles, enemyCount, enemyCount);
+            foreach(GameObject enemy in enemyTiles)
+            {
+                enemy.GetComponent<Enemy>().CharacterID = id++;
+            }
 			
 			//Instantiate the exit tile in the upper right hand corner of our game board
 			Instantiate (exit, new Vector3 (columns - 1, rows - 1, 0f), Quaternion.identity);
