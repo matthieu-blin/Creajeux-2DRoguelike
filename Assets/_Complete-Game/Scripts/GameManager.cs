@@ -13,7 +13,8 @@ namespace Completed
 		public float turnDelay = 0.1f;							//Delay between each Player turn.
 		public int playerFoodPoints = 100;						//Starting value for Player food points.
 		public static GameManager instance = null;				//Static instance of GameManager which allows it to be accessed by any other script.
-		[HideInInspector] public bool playersTurn = true;		//Boolean to check if it's players turn, hidden in inspector but public.
+		[HideInInspector] public bool playersTurn = true;       //Boolean to check if it's players turn, hidden in inspector but public.
+		[HideInInspector] public bool objectMoving = false;
 		
 		
 		private Text levelText;									//Text to display current level number.
@@ -115,7 +116,7 @@ namespace Completed
 		void Update()
 		{
 			//Check that playersTurn or enemiesMoving or doingSetup are not currently true.
-			if(playersTurn || enemiesMoving || doingSetup)
+			if(playersTurn || objectMoving || enemiesMoving || doingSetup)
 				
 				//If any of these are true, return and do not start MoveEnemies.
 				return;
