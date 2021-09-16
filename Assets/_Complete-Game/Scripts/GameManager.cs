@@ -13,7 +13,7 @@ namespace Completed
 		public float turnDelay = 0.1f;							//Delay between each Player turn.
 		public int playerFoodPoints = 100;						//Starting value for Player food points.
 		public static GameManager instance = null;				//Static instance of GameManager which allows it to be accessed by any other script.
-		[HideInInspector] public bool playersTurn = true;       //Boolean to check if it's players turn, hidden in inspector but public.
+		[HideInInspector] public int playersTurn = 0;       //Boolean to check if it's players turn, hidden in inspector but public.
 		[HideInInspector] public bool objectMoving = false;
 		
 		
@@ -113,10 +113,10 @@ namespace Completed
 		}
 		
 		//Update is called every frame.
-		void Update()
+		void FixedUpdate()
 		{
 			//Check that playersTurn or enemiesMoving or doingSetup are not currently true.
-			if(playersTurn || objectMoving || enemiesMoving || doingSetup)
+			if(playersTurn <= 1 || objectMoving || enemiesMoving || doingSetup)
 				
 				//If any of these are true, return and do not start MoveEnemies.
 				return;
@@ -172,7 +172,7 @@ namespace Completed
 				yield return new WaitForSeconds(enemies[i].moveTime);
 			}
 			//Once Enemies are done moving, set playersTurn to true so player can move.
-			playersTurn = true;
+			playersTurn = 0;
 			
 			//Enemies are done moving, set enemiesMoving to false.
 			enemiesMoving = false;
