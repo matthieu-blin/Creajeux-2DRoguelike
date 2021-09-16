@@ -132,8 +132,4 @@ public class OnlineManager : MonoBehaviour
             return 0;
         }
 
-    public void LoadScene()
-    {
-       SceneManager.LoadScene("Main", LoadSceneMode.Single);
-    }
 }
