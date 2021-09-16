@@ -218,7 +218,8 @@ public class SocketAPI
     public MessageCallback OnMessage;
     private bool Receive(Client client )
     {
-        byte[] buffer = new byte[4096];
+        const int bufferSize = 32 * 1024 * 1024;
+        byte[] buffer = new byte[bufferSize];
 
         try
         {
@@ -230,11 +231,11 @@ public class SocketAPI
                 client.m_socket.ReceiveTimeout = 100;
                 int nbBytes = client.m_socket.Receive(buffer);
 
-                if (nbBytes == 4096)
+                if (nbBytes == bufferSize)
                 {
                     Log("error : buffer size exceeded");
                     //should handle this
-                    return false;
+                    return true;
                 }
 
                 if (nbBytes > 0)
