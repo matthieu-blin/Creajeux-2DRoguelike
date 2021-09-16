@@ -56,8 +56,7 @@ namespace Completed
 		private void Update ()
 		{
 			//If it's not the player's turn, exit the function.
-			if(!GameManager.instance.playersTurn) return;
-			
+			if(GameManager.instance.playersTurn > 1) return;
 			int horizontal = 0;  	//Used to store the horizontal move direction.
 			int vertical = 0;		//Used to store the vertical move direction.
 			
@@ -151,9 +150,10 @@ namespace Completed
 			
 			//Since the player has moved and lost food points, check if the game has ended.
 			CheckIfGameOver ();
+
 			
 			//Set the playersTurn boolean of GameManager to false now that players turn is over.
-			GameManager.instance.playersTurn = false;
+			GameManager.instance.playersTurn++;
 		}
 		
 		
