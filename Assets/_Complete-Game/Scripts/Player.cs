@@ -23,6 +23,8 @@ namespace Completed
 		
 		private Animator animator;					//Used to store a reference to the Player's animator component.
 		private int food;                           //Used to store player food points total during level.
+
+        public int Food { get => food; set => food = value; }
 #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
         private Vector2 touchOrigin = -Vector2.one;	//Used to store location of screen touch origin for mobile controls.
 #endif
@@ -57,6 +59,14 @@ namespace Completed
 		{
 			//If it's not the player's turn, exit the function.
 			if(GameManager.instance.playersTurn > 1) return;
+
+			if(GameManager.instance.playersTurn  != GetComponent<OnlineIdentity>().m_localPlayerAuthority) return;
+
+
+			if (!GetComponent<OnlineIdentity>().HasAuthority())
+				return;
+
+						
 			int horizontal = 0;  	//Used to store the horizontal move direction.
 			int vertical = 0;		//Used to store the vertical move direction.
 			
